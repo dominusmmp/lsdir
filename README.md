@@ -8,4 +8,4 @@ cd lsdir
 node link
 ```
 
-Now you can use "nls <dir>" command everywhere in your terminal to list files/folders in a directory
+Now you can use "nls [dir]" command everywhere in your terminal to list files/folders in a directory
