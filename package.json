@@ -12,8 +12,7 @@
   "bin": {
     "nls": "index.js"
   },
-  "type": "module",
   "dependencies": {
-    "chalk": "^5.0.1"
+    "colors": "^1.4.0"
   }
 }
