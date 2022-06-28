@@ -1,16 +1,15 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
+const path = require("path");
 const colors = require('colors');
+const { lstat, readdir } = require("fs-extra");
 
-const { lstat } = fs.promises
 const targetDir = process.argv[2] || process.cwd()
 
-fs.readdir(targetDir, async (err, files) => {
-    if (err) {
-        console.log(err)
-    }
+readdir(targetDir, async (err, files) => {
+
+    err &&
+        console.error(err)
 
     const statPromises = files.map(file => {
         return lstat(path.join(targetDir, file))
@@ -18,13 +17,13 @@ fs.readdir(targetDir, async (err, files) => {
 
     const allStats = await Promise.all(statPromises)
 
-    for (const stat of allStats) {
-        const index = allStats.indexOf(stat)
+    for (const [i, stat] of allStats.entries()) {
 
-        if (stat.isFile()) {
-            console.log(colors.green(files[index]))
-        } else {
-            console.log(colors.bold.blue(files[index]))
+        if (!stat.isFile()) {
+            console.log(colors.bold.blue(files[i] + '/'))
+            continue
         }
+
+        console.log(colors.white(files[i]))
     }
 })
