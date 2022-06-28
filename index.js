@@ -13,7 +13,7 @@ readdir(targetDir, async (err, files) => {
 
     for (const [i, stat] of files.entries()) {
 
-        isDir = (await lstat(stat)).isDirectory()
+        isDir = (await lstat(path.join(targetDir, stat))).isDirectory()
 
         if (isDir) {
             console.log(colors.bold.blue(files[i] + '/'))
